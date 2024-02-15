@@ -6,6 +6,7 @@ services:
       context: .
       dockerfile: Dockerfile
     restart: unless-stopped
+    container_name: app
     working_dir: /var/www/
     volumes:
       - ./:/var/www
@@ -13,6 +14,7 @@ services:
       - laravel
   nginx:
     image: nginx:alpine
+    container_name: nginx
     restart: unless-stopped
     ports:
       - "8000:80"
@@ -23,7 +25,7 @@ services:
       - laravel
   postgres:
     image: postgres:13.3
-    container_name: postgresdatabase
+    container_name: postgres
     environment:
       POSTGRES_PASSWORD: password
       POSTGRES_DB: database
@@ -35,6 +37,7 @@ services:
       - laravel
   pgadmin:
     image: dpage/pgadmin4:5.2
+    container_name: pgadmin
     environment:
       PGADMIN_DEFAULT_EMAIL: admin@example.com
       PGADMIN_DEFAULT_PASSWORD: password
